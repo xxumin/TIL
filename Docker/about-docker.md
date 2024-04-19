@@ -40,6 +40,16 @@ sudo systemctl start docker
 |**WORKDIR**|Change working directory.|
 
 #### DockerFile 작성하고 빌드하기
+requirements.txt
+```
+Flask==2.1.0
+pandas==0.25.2
+Flask-HTTPAuth==3.3.0
+click==8.0
+numpy==1.23.1
+Werkzeug==2.0.0
+```
+
 ```sh
 # 기반 이미지 정의
 FROM python:3.9-slim

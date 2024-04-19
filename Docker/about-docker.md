@@ -40,12 +40,28 @@ sudo systemctl start docker
 |**WORKDIR**|Change working directory.|
 
 #### DockerFile 작성하고 빌드하기
-```
-FROM python:3.8-slim
-RUN pip install click==7.1.1 requests==2.23.0
+```sh
+# 기반 이미지 정의
+FROM python:3.9-slim
 
-RUN chmod +x /usr/bin/local/fetch-ratings
-ENV PATH="usr/path/bin:${PATH}"
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# 필요한 파일 복사
+COPY requirements.txt .
+
+# 의존성 설치
+RUN pip install -r requirements.txt
+
+# 소스 코드 복사
+COPY . .
+
+# 컨테이너가 실행될 명령 설정
+CMD ["python", "app.py"]
+```
+
+```sh
+docker build -t $image:$tag $PATH
 ```
 
 
@@ -58,19 +74,17 @@ ENV PATH="usr/path/bin:${PATH}"
 |images||도커 이미지 조회하기|```docker images```|
 |run||docker pull + docker create + docker start|```docker run -d --name $name -p $hostp:$containerp -v $hostv:$containerv $image```|
 ||name|컨테이너 이름 지정||
-||d|컨테이너를 백그라운드에서 실행. detach||
+||d|컨테이너를 백그라운드에서 실행 --detach||
 ||v|호스트와 컨테이너 간의 볼륨 연결||
 ||p|호스트와 컨테이너 간의 포트 연결||
 |exec|||```docker exec -it $container bash```|
-||i|||
-||t|||
+||i|--interactive||
+||t|--tty||
 |network||||
 ||ls||```docker network ls```|
 |inspect|||```docker inspect $container```|
-|logs|||```docker logs```|
-|stop|||```docker stop```|
+|logs|||```docker logs $container```|
+|stop|||```docker stop $container```|
 |rm|||```docker rm $container```|
-
-
-
-
+|save|o||```docker save -o $name.tar $image:$tag```|
+|load|i||```docker load -i $name.tar```|

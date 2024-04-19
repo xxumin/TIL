@@ -16,7 +16,7 @@
 sudo systemctl start docker
 ```
 
-## DockerFile
+## Dockerfile
 ### 이미지 만들기
 | Instruction  | Description |
 |---:|:---|

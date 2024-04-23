@@ -2,4 +2,8 @@
 nping $ip_address -c 10 --tcp -p 5432
 netstat -nap | grep 5432
 du . -h --max-depth=1
+
+sftp $user_id@$ip_address
+get 
+put
 ```
